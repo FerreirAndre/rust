@@ -12,10 +12,13 @@ fn main() {
     loop {
         guess.clear();
         io::stdin().read_line(&mut guess).expect("failed to read");
-        let guessed = guess
-            .trim()
-            .parse::<u32>()
-            .expect("error, should type a number.");
+        let guessed: u32 = match guess.trim().parse::<u32>() {
+            Ok(num) => num,
+            Err(_) => {
+                println!("enter a number.");
+                continue;
+            }
+        };
 
         match n1.cmp(&guessed) {
             Ordering::Less => println!("lower!"),
